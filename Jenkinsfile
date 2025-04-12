@@ -1,34 +1,28 @@
 pipeline {
     agent any
+
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'
-                bat 'python app/main.py'
+                echo 'Building the project...'
             }
         }
+
         stage('Test') {
             steps {
-                echo 'Testing...'
-                bat 'pytest tests'
+                echo 'Running tests...'
             }
         }
+
         stage('Deploy to Staging') {
-            when {
-                branch 'develop'
-            }
             steps {
-                echo 'Deploying to staging...'
-                bat 'echo Simulated staging deploy'
+                bat 'deploy_staging.bat'
             }
         }
+
         stage('Deploy to Production') {
-            when {
-                branch 'main'
-            }
             steps {
-                echo 'Deploying to production...'
-                bat 'echo Simulated production deploy'
+                bat 'deploy_production.bat'
             }
         }
     }
